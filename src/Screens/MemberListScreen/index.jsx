@@ -73,7 +73,6 @@ export const MemberListScreen = () => {
               modalData.data.map((val, key) => {
                 return <CText>{val.phoneNumber}</CText>
               })}
-
             <table style={styles}>
               {modalData.type == 'family' &&
                 Array.isArray(modalData.data) &&
@@ -147,9 +146,6 @@ export const MemberListScreen = () => {
                   )
                 })}
             </tbody>
-            <tfoot>
-              <tr></tr>
-            </tfoot>
           </table>
         </div>
       </CContent>

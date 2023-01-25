@@ -19,12 +19,10 @@ const FamilyItem = ({
     onChange(rowIndex, { ...rowValue, name: value })
   }
   const handleChangeBirthdate = value => {
-    console.log('value', value)
     onChange(rowIndex, { ...rowValue, birthdate: value.toString() })
   }
 
   const handleChangeRelation = value => {
-    console.log(value)
     onChange(rowIndex, { ...rowValue, relation: value })
   }
 
@@ -33,37 +31,46 @@ const FamilyItem = ({
     value: item
   }))
 
-  console.log('birthdate', rowValue.birthdate)
+  console.log('>>>', rowError)
 
   return (
     <div class='row'>
       <div class='col-sm'>
-        <CField value={rowValue.name} onChange={handleChangeName} />
-        {rowError ? (
-          <ErrorMessage>{rowError.name.errorMessage}</ErrorMessage>
-        ) : null}
+        <CField
+          value={rowValue.name}
+          onChange={handleChangeName}
+          errorMessage={
+            rowError && 'name' in rowError ? rowError.name.errorMessage : null
+          }
+        />
       </div>
       <div class='col-sm'>
         <CDatePicker
           value={rowValue.birthdate ? new Date(rowValue.birthdate) : new Date()}
           onChange={handleChangeBirthdate}
+          errorMessage={
+            rowError && 'birthdate' in rowError
+              ? rowError.birthdate.errorMessage
+              : null
+          }
         />
-        {rowError ? (
-          <ErrorMessage>{rowError.quantity.errorMessage}</ErrorMessage>
-        ) : null}
       </div>
       <div class='col-sm'>
-        <CSelectPicker data={selectData} onChange={handleChangeRelation} />
-        {/* <CField value={rowValue.relationship} onChange={handleChangeRelation} /> */}
-        {rowError ? (
-          <ErrorMessage>{rowError.name.errorMessage}</ErrorMessage>
-        ) : null}
+        <CSelectPicker
+          data={selectData}
+          onChange={handleChangeRelation}
+          errorMessage={
+            rowError && 'relation' in rowError
+              ? rowError.relation.errorMessage
+              : null
+          }
+        />
       </div>
     </div>
   )
 }
 
-export const FamilyInputControl = ({ value = [''], onChange, fieldError }) => {
+export const FamilyInputControl = ({ value = [], onChange, fieldError }) => {
   const errors = fieldError ? fieldError.array : []
   const [family, setFamily] = React.useState(value)
   const handleChangeProducts = nextFamily => {
@@ -79,6 +86,7 @@ export const FamilyInputControl = ({ value = [''], onChange, fieldError }) => {
   const handleMinus = () => {
     handleChangeProducts(family.slice(0, -1))
   }
+
   const handleAdd = () => {
     handleChangeProducts(family.concat([{ name: '', quantity: null }]))
   }
@@ -91,15 +99,16 @@ export const FamilyInputControl = ({ value = [''], onChange, fieldError }) => {
           <div class='col-sm'>Tanggal Lahir</div>
           <div class='col-sm'>Relasi</div>
         </div>
-        {family.map((rowValue, index) => (
-          <FamilyItem
-            key={index}
-            rowIndex={index}
-            rowValue={rowValue}
-            rowError={errors[index] ? errors[index].object : null}
-            onChange={handleInputChange}
-          />
-        ))}
+        {family.length > 0 &&
+          family.map((rowValue, index) => (
+            <FamilyItem
+              key={index}
+              rowIndex={index}
+              rowValue={rowValue}
+              rowError={errors && errors[index] ? errors[index].object : null}
+              onChange={handleInputChange}
+            />
+          ))}
         <div className='mt-3'>
           <ButtonGroup size='xs'>
             <IconButton onClick={handleAdd} icon={<PlusIcon />} />

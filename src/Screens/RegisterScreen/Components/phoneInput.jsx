@@ -7,13 +7,16 @@ import MinusIcon from '@rsuite/icons/Minus'
 
 import { CField } from '../../../Components/CField'
 
-
-const PhoneItem = ({ rowValue = {}, onChange, rowIndex, rowError }) => {
+const PhoneItem = ({
+  rowValue = {},
+  onChange,
+  rowIndex,
+  rowError
+}) => {
   const handleChangePhone = value => {
+    console.log(typeof value, value)
     onChange(rowIndex, { ...rowValue, phoneNumber: value })
   }
-
-  console.log('rowError', rowError);
 
   return (
     <>
@@ -22,15 +25,17 @@ const PhoneItem = ({ rowValue = {}, onChange, rowIndex, rowError }) => {
         onChange={handleChangePhone}
         rowIndex={rowIndex}
         rowError={rowError}
+        errorMessage={rowError ? rowError.phoneNumber.errorMessage : null}
       />
-      {rowError ? (
-        <ErrorMessage>{rowError.phoneNumber.errorMessage}</ErrorMessage>
-      ) : null}
     </>
   )
 }
 
-export const PhoneInputControl = ({ value = [''], onChange, fieldError }) => {
+export const PhoneInputControl = ({
+  value = [''],
+  onChange,
+  fieldError
+}) => {
   const errors = fieldError ? fieldError.array : []
   const [phoneNumber, setPhone] = React.useState(value)
   const handleChangePhone = nextPhone => {
@@ -49,8 +54,10 @@ export const PhoneInputControl = ({ value = [''], onChange, fieldError }) => {
   }
 
   const handleAdd = () => {
-    handleChangePhone(phoneNumber.concat([{ phoneNumber: ''}]))
+    handleChangePhone(phoneNumber.concat([{ phoneNumber: '' }]))
   }
+
+  console.log('ERROR', errors)
 
   return (
     <>
@@ -59,7 +66,7 @@ export const PhoneInputControl = ({ value = [''], onChange, fieldError }) => {
           key={index}
           rowIndex={index}
           rowValue={rowValue}
-          rowError={errors[index] ? errors[index].object : null}
+          rowError={errors && errors[index] ? errors[index].object : null}
           onChange={handleInputChange}
         />
       ))}
