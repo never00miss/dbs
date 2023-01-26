@@ -52,12 +52,8 @@ const model = Schema.Model({
           name: Schema.Types.StringType()
             .isRequired('Required.')
             .pattern(/^[a-z ,.'-]+$/i),
-          birthdate: Schema.Types.DateType().isRequired(
-            'This field is required.'
-          ),
-          relation: Schema.Types.StringType().isRequired(
-            'This field is required.'
-          )
+          birthdate: Schema.Types.DateType(),
+          relation: Schema.Types.StringType()
         })
     )
 })
@@ -139,20 +135,20 @@ export const RegisterScreen = props => {
           <div className='container p-2'>
             <div className='row'>
               <div className='col-sm'>
-                <CField name='name' label='Nama' />
-                <CField name='ektpNumber' label='Nomor e-KTP' />
-                <CField name='address' label='Alamat' />
-                <CField name='job' label='Pekerjaan' />
+                <CField name='name' label='Nama*' />
+                <CField name='ektpNumber' label='Nomor e-KTP*' />
+                <CField name='address' label='Alamat*' />
+                <CField name='job' label='Pekerjaan*' />
                 <CField
                   name='birthdate'
-                  label='Tanggal Lahir'
+                  label='Tanggal Lahir*'
                   accepter={CDatePicker}
                 />
               </div>
               <div className='col-sm'>
                 <CField
                   name='phone'
-                  label='No. Telpon'
+                  label='No. Telpon*'
                   fieldError={formError.phone}
                   accepter={PhoneInputControl}
                 />

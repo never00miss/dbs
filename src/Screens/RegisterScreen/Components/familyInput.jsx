@@ -10,7 +10,7 @@ import { CField } from '../../../Components/CField'
 import { CSelectPicker } from '../../../Components/CSelectPicker'
 
 const FamilyItem = ({
-  rowValue = { birthdate: new Date() },
+  rowValue = {},
   onChange,
   rowIndex,
   rowError
@@ -46,7 +46,7 @@ const FamilyItem = ({
       </div>
       <div class='col-sm'>
         <CDatePicker
-          value={rowValue.birthdate ? new Date(rowValue.birthdate) : new Date()}
+          // value={rowValue.birthdate ? new Date(rowValue.birthdate) : new Date()}
           onChange={handleChangeBirthdate}
           errorMessage={
             rowError && 'birthdate' in rowError
@@ -95,7 +95,7 @@ export const FamilyInputControl = ({ value = [], onChange, fieldError }) => {
     <>
       <div class='container'>
         <div class='row'>
-          <div class='col-sm'>Nama</div>
+          <div class='col-sm'>Nama*</div>
           <div class='col-sm'>Tanggal Lahir</div>
           <div class='col-sm'>Relasi</div>
         </div>
