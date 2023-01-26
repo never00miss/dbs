@@ -9,6 +9,7 @@ import { CContent } from '../../Components/CContent'
 import { CHeader } from '../../Components/CHeader'
 import { CText } from '../../Components/CText'
 import { Cell } from '../RegisterScreen/Components/cell'
+import { GetBeautifyDate } from './function'
 
 const styles = {
   border: '1px solid #f0f0f0',
@@ -82,7 +83,7 @@ export const MemberListScreen = () => {
                       <thead style={styles}>
                         <tr style={styles}>
                           <Cell>{val.name}</Cell>
-                          <Cell>{val.birthdate}</Cell>
+                          <Cell>{GetBeautifyDate(val.birthdate)}</Cell>
                           <Cell>{val.relation}</Cell>
                         </tr>
                       </thead>
@@ -99,7 +100,7 @@ export const MemberListScreen = () => {
           </Modal.Footer>
         </Modal>
         <div className='container'>
-          <div className='pt-2 pb-2'>
+          <div className='pt-3 pb-3'>
             <CButton
               label='Tambah Member'
               appearance='primary'
@@ -113,7 +114,7 @@ export const MemberListScreen = () => {
                 <Cell>E-KTP</Cell>
                 <Cell>Address</Cell>
                 <Cell>Job</Cell>
-                <Cell>Date of Birth</Cell>
+                <Cell style={{width: 100}}>Date of Birth</Cell>
                 <Cell>Phone</Cell>
                 <Cell>Family</Cell>
               </tr>
@@ -127,7 +128,7 @@ export const MemberListScreen = () => {
                       <Cell>{val.ektpNumber}</Cell>
                       <Cell>{val.address}</Cell>
                       <Cell>{val.job}</Cell>
-                      <Cell>{val.birthdate}</Cell>
+                      <Cell>{GetBeautifyDate(val.birthdate)}</Cell>
                       <Cell>
                         <CButton
                           label={'Show ' + (val.phone ? val.phone.length : 0)}
