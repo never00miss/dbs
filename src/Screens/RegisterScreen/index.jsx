@@ -55,7 +55,7 @@ const model = Schema.Model({
           birthdate: Schema.Types.DateType().isRequired(
             'This field is required.'
           ),
-          relation: Schema.Types.DateType().isRequired(
+          relation: Schema.Types.StringType().isRequired(
             'This field is required.'
           )
         })
@@ -96,8 +96,7 @@ export const RegisterScreen = props => {
     toaster.push(<Message type='success'>Success</Message>)
     onRegister(formValue)
 
-    return
-    // return navigate('/')
+    return navigate('/')
   }
 
   console.log('formerror', formError)
